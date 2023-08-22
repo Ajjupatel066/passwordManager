@@ -209,7 +209,7 @@ class PasswordManager extends Component {
                 <PasswordItem
                   key={eachPassword.id}
                   eachPassword={eachPassword}
-                  showPassword={this.showPassword}
+                  showPassword={showPassword}
                   deletePassword={this.deletePassword}
                 />
               ))}
