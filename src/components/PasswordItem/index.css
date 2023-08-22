@@ -1,0 +1,61 @@
+.saved-password-card {
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  background-color: transparent;
+  margin-bottom: 30px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 350px;
+}
+
+.initial-container {
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+  margin: 5px;
+}
+
+.initial-text {
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.Details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.saved-text {
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 10px;
+  margin: 0px;
+}
+.stars {
+  height: 20px;
+  width: 140px;
+  margin: 10px;
+}
+.button {
+  background-color: transparent;
+  margin: 10px;
+  border-width: 0px;
+}
+.delete-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  outline: none;
+}

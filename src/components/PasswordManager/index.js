@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {v4} from 'uuid'
 
 import PasswordItem from '../PasswordItem'
 
@@ -14,8 +15,73 @@ class PasswordManager extends Component {
     searchPassword: '',
   }
 
+  deletePassword = id => {
+    const {passwordsList} = this.state
+    const updatedPasswordList = passwordsList.filter(
+      eachPassword => id !== eachPassword.id,
+    )
+
+    this.setState({passwordsList: updatedPasswordList})
+  }
+
+  onClickAddButton = event => {
+    event.preventDefault()
+    const {websiteInput, usernameInput, passwordInput} = this.state
+
+    const newPassword = {
+      id: v4(),
+      website: websiteInput,
+      username: usernameInput,
+      password: passwordInput,
+    }
+
+    this.setState(prevState => ({
+      passwordsList: [...prevState.passwordsList, newPassword],
+      websiteInput: '',
+      usernameInput: '',
+      passwordInput: '',
+    }))
+  }
+
+  onChangeSearchInput = event => {
+    event.preventDefault()
+    const {passwordsList} = this.state
+    const updatedList = passwordsList.filter(
+      eachPassword =>
+        event.target.value.toLowerCase() === eachPassword.website.toLowerCase(),
+    )
+
+    this.setState({
+      searchPassword: event.target.value,
+      passwordsList: updatedList,
+    })
+  }
+
+  onChangeWebsiteInput = event => {
+    this.setState({websiteInput: event.target.value})
+  }
+
+  onChangeUsernameInput = event => {
+    this.setState({usernameInput: event.target.value})
+  }
+
+  onChangePasswordInput = event => {
+    this.setState({passwordInput: event.target.value})
+  }
+
+  onClickShowPassword = () => {
+    this.setState(prevState => ({showPassword: !prevState.showPassword}))
+  }
+
   render() {
-    const {passwordsList, showPassword} = this.state
+    const {
+      passwordsList,
+      showPassword,
+      websiteInput,
+      usernameInput,
+      passwordInput,
+      searchPassword,
+    } = this.state
 
     return (
       <div className="app-container">
@@ -30,7 +96,7 @@ class PasswordManager extends Component {
             src="https://assets.ccbp.in/frontend/react-js/password-manager-lg-img.png"
             alt="password manager"
           />
-          <form className="add-password-form">
+          <form className="add-password-form" onSubmit={this.onClickAddButton}>
             <h1 className="password-form-title">Add New Password</h1>
             <div className="input-container">
               <div className="icon-container">
@@ -42,6 +108,8 @@ class PasswordManager extends Component {
               </div>
               <input
                 type="text"
+                value={websiteInput}
+                onChange={this.onChangeWebsiteInput}
                 placeholder="Enter Website"
                 className="input-box"
               />
@@ -57,6 +125,8 @@ class PasswordManager extends Component {
               </div>
               <input
                 type="text"
+                value={usernameInput}
+                onChange={this.onChangeUsernameInput}
                 placeholder="Enter Username"
                 className="input-box"
               />
@@ -72,12 +142,14 @@ class PasswordManager extends Component {
               </div>
               <input
                 type="password"
+                value={passwordInput}
+                onChange={this.onChangePasswordInput}
                 placeholder="Enter Password"
                 className="input-box"
               />
             </div>
             <div className="button-container">
-              <button className="add-btn" type="button">
+              <button className="add-btn" type="submit">
                 Add
               </button>
             </div>
@@ -102,6 +174,8 @@ class PasswordManager extends Component {
               </div>
               <input
                 type="search"
+                value={searchPassword}
+                onChange={this.onChangeSearchInput}
                 className="search-input"
                 placeholder="Search"
               />
@@ -113,10 +187,11 @@ class PasswordManager extends Component {
               type="checkbox"
               id="showPassword"
               value={showPassword}
+              onChange={this.onClickShowPassword}
               className="check-box"
             />
             <label htmlFor="showPassword" className="text">
-              Show Passwords
+              Show passwords
             </label>
           </div>
           {passwordsList.length === 0 ? (
@@ -129,11 +204,13 @@ class PasswordManager extends Component {
               <p className="header-title">No Passwords</p>
             </div>
           ) : (
-            <ul>
+            <ul className="saved-password-list">
               {passwordsList.map(eachPassword => (
                 <PasswordItem
+                  key={eachPassword.id}
                   eachPassword={eachPassword}
-                  showPassword={showPassword}
+                  showPassword={this.showPassword}
+                  deletePassword={this.deletePassword}
                 />
               ))}
             </ul>
