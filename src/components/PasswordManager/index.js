@@ -7,10 +7,15 @@ import './index.css'
 class PasswordManager extends Component {
   state = {
     passwordsList: [],
+    websiteInput: '',
+    usernameInput: '',
+    passwordInput: '',
+    showPassword: false,
+    searchPassword: '',
   }
 
   render() {
-    const {passwordsList} = this.state
+    const {passwordsList, showPassword} = this.state
 
     return (
       <div className="app-container">
@@ -103,6 +108,17 @@ class PasswordManager extends Component {
             </div>
           </div>
           <hr className="hr-line" />
+          <div className="show-password-container">
+            <input
+              type="checkbox"
+              id="showPassword"
+              value={showPassword}
+              className="check-box"
+            />
+            <label htmlFor="showPassword" className="text">
+              Show Passwords
+            </label>
+          </div>
           {passwordsList.length === 0 ? (
             <div className="no-password-container">
               <img
@@ -115,7 +131,10 @@ class PasswordManager extends Component {
           ) : (
             <ul>
               {passwordsList.map(eachPassword => (
-                <PasswordItem eachPassword={eachPassword} />
+                <PasswordItem
+                  eachPassword={eachPassword}
+                  showPassword={showPassword}
+                />
               ))}
             </ul>
           )}

@@ -1,5 +1,5 @@
 const PasswordItem = props => {
-  const {eachPassword} = props
+  const {eachPassword, showPassword} = props
 }
 
 export default PasswordItem
