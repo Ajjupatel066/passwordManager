@@ -11,14 +11,17 @@ const PasswordItem = props => {
   return (
     <li className="saved-password-card">
       <div className="initial-container">
-        <p className="initial-text">{username[0].toUpperCase()}</p>
+        {username.length > 0 ? (
+          <p className="initial-text">{username[0].toUpperCase()}</p>
+        ) : (
+          ' '
+        )}
       </div>
       <div className="Details">
         <p className="saved-text">{website}</p>
         <p className="saved-text">{username}</p>
-        {showPassword ? (
-          <p className="saved-text">{password}</p>
-        ) : (
+        {showPassword && <p className="saved-text">{password}</p>}
+        {!showPassword && (
           <img
             src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png"
             alt="stars"

@@ -46,9 +46,9 @@ class PasswordManager extends Component {
   onChangeSearchInput = event => {
     event.preventDefault()
     const {passwordsList} = this.state
-    const updatedList = passwordsList.filter(
-      eachPassword =>
-        event.target.value.toLowerCase() === eachPassword.website.toLowerCase(),
+    const searchQuery = event.target.value.toLowerCase()
+    const updatedList = passwordsList.filter(eachPassword =>
+      eachPassword.website.toLowerCase().includes(searchQuery),
     )
 
     this.setState({
@@ -216,6 +216,17 @@ class PasswordManager extends Component {
             </ul>
           )}
         </div>
+        <p className="designed">
+          Designed By:
+          <a
+            className="link"
+            target="_blank"
+            rel="noreferrer"
+            href="https://www.linkedin.com/in/ajith-kumar-esampally/"
+          >
+            Ajith Kumar Esampally
+          </a>
+        </p>
       </div>
     )
   }
